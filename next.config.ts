@@ -1,7 +1,22 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'payload-cms-blog-website-qrdy.vercel.app',
+        port: '',
+        pathname: '/api/media/file/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
