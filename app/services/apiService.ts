@@ -22,7 +22,6 @@ export const apiService = {
   getCategories: (): Promise<Category[]> => fetcher<Category[]>('/categories'),
   getComments: (postId: string): Promise<Comment[]> => fetcher<Comment[]>(`/comments?where[post][equals]=${postId}`),
     getPostsByCategoryId: (categoryId: string): Promise<Post[]> => {
-    // This creates a query like: /posts?where[categories][equals]=<categoryId>
     const query = `/posts?where[categories][equals]=${categoryId}`;
     return fetcher<Post[]>(query);
   },
