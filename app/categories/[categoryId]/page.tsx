@@ -1,6 +1,6 @@
-import { apiService } from '../../services/apiService'; // Changed to absolute path
-import PostCard from '../../components/shared/PostCard'; // Changed to absolute path
-import { Post } from '../../types'; // Changed to absolute path
+import { apiService } from '../../services/apiService'; 
+import PostCard from '../../components/shared/PostCard'; 
+import { Post } from '../../types'; 
 
 // This interface defines the shape of the props our page will receive
 interface CategoryPostsPageProps {
@@ -12,13 +12,13 @@ interface CategoryPostsPageProps {
 export default async function CategoryPostsPage({ params }: CategoryPostsPageProps) {
   const { categoryId } = params;
   
-  // --- CHANGE IS HERE ---
+
   // Fetch ONLY the posts belonging to this category directly from the API.
   const filteredPosts = await apiService.getPostsByCategoryId(categoryId);
-  // --- END OF CHANGE ---
+
   
   // Fetch category details to display the name in the title
-  // This part remains the same.
+
   const categories = await apiService.getCategories();
   const category = categories.find(c => c.id === categoryId);
   const categoryName = category ? category.name : 'Category';
