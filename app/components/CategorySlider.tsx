@@ -16,7 +16,6 @@ const CategorySlider = ({ categories }: CategorySliderProps) => {
     <div className="relative">
       <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
         {Array.isArray(categories) && categories.map((category) => {
-          // Check if the current path matches this category's link
           const isActive = pathname === `/categories/${category.id}`;
 
           return (

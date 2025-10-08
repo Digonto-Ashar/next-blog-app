@@ -16,26 +16,20 @@ const Header = () => {
     : 'text-gray-600 hover:text-blue-600';
 
   return (
-    <header className={headerClasses}>
-      <nav className="container mx-auto px-6 py-6 flex justify-between items-center">
-        {/* This will now use the Inter font and remain bold */}
+    <header className={headerClasses} role="banner">
+      <nav 
+        className="container mx-auto px-6 py-6 flex justify-between items-center"
+        role="navigation"
+        aria-label="Main Navigation"
+      >
         <Link href="/" className="text-3xl font-bold tracking-tight">
           MyBlog
         </Link>
         <ul className="flex items-center space-x-8 text-lg">
-          {/* These links will now use the Inter font with a regular weight */}
-          <li>
-            <Link href="/" className={linkClasses}>Home</Link>
-          </li>
-          <li>
-            <Link href="/categories" className={linkClasses}>Categories</Link>
-          </li>
-          <li>
-            <Link href="/notification" className={linkClasses}>Notification</Link>
-          </li>
-          <li>
-            <Link href="/about" className={linkClasses}>About</Link>
-          </li>
+          <li><Link href="/" className={linkClasses}>Home</Link></li>
+          <li><Link href="/categories" className={linkClasses}>Categories</Link></li>
+          <li><Link href="/notification" className={linkClasses}>Notification</Link></li>
+          <li><Link href="/about" className={linkClasses}>About</Link></li>
         </ul>
       </nav>
     </header>

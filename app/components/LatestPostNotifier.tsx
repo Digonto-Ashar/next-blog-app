@@ -14,15 +14,13 @@ const NOTIFICATION_SHOWN_KEY = 'hasShownHomepageNotification';
 
 const LatestPostNotifier = ({ posts }: LatestPostNotifierProps) => {
   useEffect(() => {
-    // 1. Check if the notification has already been shown in this session
+    //  Check if the notification has already been shown in this session
     const hasBeenShown = sessionStorage.getItem(NOTIFICATION_SHOWN_KEY);
-
-    // 2. If it has already been shown, or if there are no posts, stop here.
     if (hasBeenShown || !posts || posts.length === 0) {
       return;
     }
 
-    // 3. If we've reached this point, it's the first time. Show the notification.
+    // If we've reached this point, it's the first time. Show the notification.
     posts.forEach((post, index) => {
       setTimeout(() => {
         toast.custom(
@@ -58,7 +56,7 @@ const LatestPostNotifier = ({ posts }: LatestPostNotifierProps) => {
       }, index * 600);
     });
 
-    // 4. IMPORTANT: Set the flag in sessionStorage so this doesn't run again.
+    // Set the flag in sessionStorage so this doesn't run again.
     sessionStorage.setItem(NOTIFICATION_SHOWN_KEY, 'true');
     
   }, [posts]); // The effect still runs when the 'posts' prop is available.

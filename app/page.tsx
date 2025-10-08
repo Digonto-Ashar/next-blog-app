@@ -5,7 +5,7 @@ import CategorySlider from './components/CategorySlider';
 import LatestPostNotifier from './components/LatestPostNotifier';
 import FeaturedSlider from './components/FeaturedSlider';
 
-// Helper functions (renderPostSection, renderCategoriesSection)
+// Helper functions (renderPostSection)
 const renderPostSection = (title: string, posts: Post[]) => (
     <section className="mb-12">
       <h2 className="text-3xl font-bold text-gray-800 mb-6">{title}</h2>
@@ -21,36 +21,31 @@ const renderPostSection = (title: string, posts: Post[]) => (
     </section>
   );
 
-  const renderCategoriesSection = (categories: Category[]) => (
-      <section className="mb-12 ">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Categories</h2>
-          <div className="bg-gray-100 p-8 rounded-lg">
-              <div className="flex space-x-4 mt-4 overflow-x-auto pb-4">
-                  {categories.map(category => (
-                      <div key={category.id} className="flex-shrink-0 bg-white p-4 rounded-lg shadow">
-                          {category.name}
-                      </div>
-                  ))}
-              </div>
-          </div>
-      </section>
-  );
+
 
 export default async function HomePage() {
-  const allPosts = (await apiService.getPosts()) || [];
-  const categories = (await apiService.getCategories()) || [];
+  const [postsData, categoriesData] = await Promise.all([
+    apiService.getPosts(),
+    apiService.getCategories(),
+  ]);
 
-    const sortedPosts = allPosts.sort(
+  // Provide fallback empty arrays in case an API call returns null
+  const allPosts = postsData || [];
+  const categories = categoriesData || [];
+  
+  
+  // Create a new, safely sorted array
+  const sortedPosts = [...allPosts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
-  const featuredPosts = allPosts.slice(6,9);
-  const latestPostsForGrid = allPosts.slice(3,9);
-  const latestPostsForNotifier = allPosts.slice(0, 1);
-
+  // Slice correctly from the sorted array
+  const featuredPosts = sortedPosts.slice(6, 9);
+  const latestPostsForGrid = sortedPosts.slice(5, 11);
+  const latestPostForNotifier = sortedPosts.slice(0, 1);
   return (
     <div>
-      <LatestPostNotifier posts={latestPostsForNotifier} />
+      <LatestPostNotifier posts={latestPostForNotifier} />
       <FeaturedSlider posts={featuredPosts}/>
 
       <section className="container mx-auto px-6 py-12 mb-12">

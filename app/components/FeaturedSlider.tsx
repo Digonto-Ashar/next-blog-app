@@ -17,7 +17,6 @@ interface FeaturedSliderProps {
 
 const FeaturedSlider = ({ posts }: FeaturedSliderProps) => {
   return (
-    // 1. Increased section height for a taller look
     <section className="relative w-full h-[800px] -mt-24">
       <Swiper
         modules={[Autoplay, Pagination]}
@@ -31,12 +30,10 @@ const FeaturedSlider = ({ posts }: FeaturedSliderProps) => {
 
           const imageUrl = `https://payload-cms-blog-website-qrdy.vercel.app${post.featuredImage.url}`;
           
-          // 2. Create a longer excerpt for the description
           const excerpt = post.content.root.children[0]?.children[0]?.text.slice(0, 250) + '...';
 
           return (
             <SwiperSlide key={post.id} className="relative bg-black">
-              {/* Background Image */}
               <img
                 src={imageUrl}
                 alt={post.title ?? 'Featured Post Image'}

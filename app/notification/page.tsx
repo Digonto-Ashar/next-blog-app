@@ -9,10 +9,12 @@ export const metadata: Metadata = {
 };
 
 export default async function NotificationPage() {
-  const allPosts = await apiService.getPosts();
+  // Use the new SSR function instead of the cached one
+  const allPosts = await apiService.getPostsForSsr();
+  const posts = allPosts || [];
 
   // Sort posts by published date in descending order (newest first)
-  const sortedPosts = allPosts.sort(
+  const sortedPosts = [...posts].sort(
     (a: Post, b: Post) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
