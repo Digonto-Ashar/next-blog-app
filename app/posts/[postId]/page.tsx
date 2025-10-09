@@ -38,20 +38,37 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
     ? `https://payload-cms-blog-website-qrdy.vercel.app${post.featuredImage.url}`
     : null;
 
+  const authorAvatarUrl = post.author?.avatar?.url
+    ? `https://payload-cms-blog-website-qrdy.vercel.app${post.author.avatar.url}`
+    : null;  
+
   return (
     <article className="max-w-4xl mx-auto py-8">
       <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">{post.title}</h1>
       
-      <div className="flex items-center text-gray-500 mb-6">
-        <span>By {post.author.firstName} {post.author.lastName}</span>
-        <span className="mx-2">•</span>
-        <span>
-          {new Date(post.publishedAt).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </span>
+      <div className="flex items-center space-x-4 mb-8">
+        {/* Conditionally render the avatar */}
+        {authorAvatarUrl && (
+          <Image
+            src={authorAvatarUrl}
+            alt={post.author.firstName ?? 'Author Avatar'}
+            width={48}
+            height={48}
+            className="rounded-full object-cover"
+          />
+        )}
+        <div className="text-sm">
+          <p className="font-semibold text-gray-800">
+            {post.author.firstName} {post.author.lastName}
+          </p>
+          <p className="text-gray-500">
+            Published on {new Date(post.publishedAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+        </div>
       </div>
 
       {imageUrl && (
