@@ -56,6 +56,10 @@ export const apiService = {
     const query = `/posts?where[categories][equals]=${categoryId}`;
     return fetcher<Post[]>(query);
   },
+  getRelatedPosts: (categoryId: string, currentPostId: string): Promise<Post[] | null> => {
+    const query = `/posts?where[categories][equals]=${categoryId}&where[id][not_equals]=${currentPostId}&limit=3`;
+    return fetcher<Post[]>(query);
+  },
   
   // SSR-specific fetcher
 getPostsForSsr: (): Promise<Post[] | null> => ssrFetcher<Post[]>('/posts?limit=100'),  
