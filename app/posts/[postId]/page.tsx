@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { apiService } from '../../services/apiService';
 import { Post } from '../../types';
+import RelatedPosts from '../../components/shared/RelatedPosts';
+import Advertisement from '../../components/shared/Advertisement';
 
 interface PostDetailsPageProps {
   params: {
@@ -34,6 +36,12 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
     return <div>Post not found.</div>;
   }
 
+  const relatedPostsData = post.categories 
+    ? await apiService.getRelatedPosts(post.categories.id, postId) 
+    : null;  
+
+   const relatedPosts = relatedPostsData || [];  
+
   const imageUrl = post.featuredImage?.url
     ? `https://payload-cms-blog-website-qrdy.vercel.app${post.featuredImage.url}`
     : null;
@@ -43,8 +51,10 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
     : null;  
 
   return (
-    <article className="max-w-4xl mx-auto py-8">
-      <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">{post.title}</h1>
+    <div className="max-w-7xl mx-auto py-12 px-6 grid grid-cols-1 lg:grid-cols-3 gap-12">
+      
+      <article className="lg:col-span-2">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">{post.title}</h1>
       
       <div className="flex items-center space-x-4 mb-8">
         {/* Conditionally render the avatar */}
@@ -87,5 +97,13 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
         {renderContent(post.content)}
       </div>
     </article>
+
+    {/* Sidebar with Related Posts and Advertisement */}
+      <aside className="lg:col-span-1 space-y-12">
+        <RelatedPosts posts={relatedPosts} />
+        <Advertisement />
+      </aside>
+    </div>
+
   );
 }
