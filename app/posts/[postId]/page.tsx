@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { apiService } from '../../services/apiService';
 import { Post } from '../../types';
 import RelatedPosts from '../../components/shared/RelatedPosts';
+import Advertisement from '../../components/shared/Advertisement';
 
 interface PostDetailsPageProps {
   params: {
@@ -97,8 +98,10 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
       </div>
     </article>
 
-      <aside className="lg:col-span-1">
+    {/* Sidebar with Related Posts and Advertisement */}
+      <aside className="lg:col-span-1 space-y-12">
         <RelatedPosts posts={relatedPosts} />
+        <Advertisement />
       </aside>
     </div>
 

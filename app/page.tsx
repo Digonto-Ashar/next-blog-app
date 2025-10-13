@@ -21,8 +21,6 @@ const renderPostSection = (title: string, posts: Post[]) => (
     </section>
   );
 
-
-
 export default async function HomePage() {
   const [postsData, categoriesData] = await Promise.all([
     apiService.getPosts(),
