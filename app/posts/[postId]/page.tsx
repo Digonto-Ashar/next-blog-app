@@ -1,6 +1,11 @@
 import Image from 'next/image';
 import { apiService } from '../../services/apiService';
 import { Post } from '../../types';
+import {
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+} from 'react-icons/fa'; // Import social media icons
 
 interface PostDetailsPageProps {
   params: {
@@ -69,6 +74,43 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
             })}
           </p>
         </div>
+      </div>
+
+      {/* Social Share Buttons */}
+      <div className="flex space-x-4 mb-8">
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            process.env.NEXT_PUBLIC_BASE_URL + '/posts/' + post.id
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-blue-800"
+          aria-label="Share on Facebook"
+        >
+          <FaFacebook size={30} />
+        </a>
+        <a
+          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+            process.env.NEXT_PUBLIC_BASE_URL + '/posts/' + post.id
+          )}&text=${encodeURIComponent(post.title)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-400 hover:text-blue-600"
+          aria-label="Share on Twitter"
+        >
+          <FaTwitter size={30} />
+        </a>
+        <a
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+            process.env.NEXT_PUBLIC_BASE_URL + '/posts/' + post.id
+          )}&title=${encodeURIComponent(post.title)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-700 hover:text-blue-900"
+          aria-label="Share on LinkedIn"
+        >
+          <FaLinkedin size={30} />
+        </a>
       </div>
 
       {imageUrl && (
