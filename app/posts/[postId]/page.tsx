@@ -80,7 +80,7 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
       <div className="flex space-x-4 mb-8">
         <a
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            process.env.NEXT_PUBLIC_BASE_URL + '/posts/' + post.id
+            'https://next-blog-app123.netlify.app' + '/posts/' + post.id
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -91,7 +91,7 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
         </a>
         <a
           href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-            process.env.NEXT_PUBLIC_BASE_URL + '/posts/' + post.id
+            'https://next-blog-app123.netlify.app' + '/posts/' + post.id
           )}&text=${encodeURIComponent(post.title)}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -102,7 +102,7 @@ export default async function PostDetailsPage({ params }: PostDetailsPageProps) 
         </a>
         <a
           href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-            process.env.NEXT_PUBLIC_BASE_URL + '/posts/' + post.id
+            'https://next-blog-app123.netlify.app' + '/posts/' + post.id
           )}&title=${encodeURIComponent(post.title)}`}
           target="_blank"
           rel="noopener noreferrer"
